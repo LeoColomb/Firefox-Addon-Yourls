@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+	<Description about="urn:mozilla:install-manifest">
+		<em:id>yourls-shortener@colmb.fr</em:id>
+		<em:name>YOURLS Shortener</em:name>
+		<em:version>1.6</em:version>
+		<em:type>2</em:type>
+		<em:creator>Léo Colombaro</em:creator>
+        <em:contributor>Martin Scharm</em:contributor>
+		<em:description>Shorten URLs with your own YOURLS instance</em:description>
+		<em:homepageURL>https://github.com/LeoColomb/Firefox-Addon-Yourls</em:homepageURL>
+		<em:optionsURL>chrome://yourls-shortener/content/options.xul</em:optionsURL>
+		<em:iconURL>chrome://yourls-shortener/skin/yourls-logo.png</em:iconURL>
+		<em:targetApplication>
+			<Description>
+				<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+				<em:minVersion>3.0</em:minVersion>
+				<em:maxVersion>15.*</em:maxVersion>
+			</Description>
+		</em:targetApplication>
+	</Description>      
+</RDF>

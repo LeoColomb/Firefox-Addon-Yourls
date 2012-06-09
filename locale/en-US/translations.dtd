@@ -1,0 +1,16 @@
+<!ENTITY shortener "YOURLS">
+<!ENTITY shorten "Shorten">
+<!ENTITY shortenlong "Shorten this page with YOURLS">
+<!ENTITY gohome "Browse to the API">
+<!ENTITY settings "Settings">
+<!ENTITY prefpane "YOURLS Shortener Preferences">
+<!ENTITY api "URL to the API, e.g. http://shortener.yoursite/">
+<!ENTITY signature "Your signature to authenticate at access restricted API's">
+<!ENTITY askforkey "Do you want to provide keywords?">
+<!ENTITY maxwait "How much time should we spend waiting for the API to respond? Minimum is 2 seconds.">
+<!ENTITY test "Test the config by shorten the URL http://binfalse.de">
+<!ENTITY apiV "API URL">
+<!ENTITY signatureV "Signature">
+<!ENTITY askforkeyV "Ask for a keyword">
+<!ENTITY maxwaitV "Max wait time (sec)">
+<!ENTITY testV "Test configuration">

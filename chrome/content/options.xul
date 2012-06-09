@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<!DOCTYPE prefwindow SYSTEM "chrome://yourls-shortener/locale/translations.dtd">
+<prefwindow title="&shortener;" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<script src="yourlsshortener.js" />
+	<prefpane label="&prefpane;">
+		<preferences>
+			<preference id="yourls-shortener-api" name="extensions.yourls-shortener.api" type="string"/>
+			<preference id="yourls-shortener-signature" name="extensions.yourls-shortener.signature" type="string"/>
+			<preference id="yourls-shortener-usesignature" name="extensions.yourls-shortener.usesignature" type="bool"/>
+			<preference id="yourls-shortener-askforkey" name="extensions.yourls-shortener.askforkey" type="bool"/>
+			<preference id="yourls-shortener-maxwait" name="extensions.yourls-shortener.maxwait" type="int"/>
+		</preferences>
+		
+		<groupbox>
+			<caption label="&settings;"/>
+			<grid>
+				<columns>
+					<column flex="1"/>
+					<column/>
+				</columns>
+				<rows>
+					<row>
+						<label control="api" tooltiptext="&api;" value="&apiV;"/>
+						<textbox id="api" preference="yourls-shortener-api"/>
+					</row>
+					<row>
+						<label control="signature" tooltiptext="&signature;" value="&signatureV;"/>
+						<textbox id="signature" preference="yourls-shortener-signature"/>
+					</row>
+					<row>
+						<label control="askforkey" tooltiptext="&askforkey;" value="&askforkeyV;"/>
+						<checkbox id="askforkey" preference="yourls-shortener-askforkey"/>
+					</row>
+					<row>
+						<label control="maxwait" tooltiptext="&maxwait;" value="&maxwaitV;"/>
+						<textbox id="maxwait" preference="yourls-shortener-maxwait"/>
+					</row>
+					<row>
+						<spacer/>
+						<button id="test" tooltiptext="&test;" label="&testV;" onclick="YOURLSshortener.test()"/>
+					</row>
+				</rows>
+			</grid>
+		</groupbox>	
+	</prefpane>
+</prefwindow>
