@@ -8,9 +8,11 @@
 <!ENTITY signature "Clé Signature permettant l'authentification à l'API">
 <!ENTITY askforkey "Fournir un mot clé spécifique à l'URL">
 <!ENTITY maxwait "Quel délai maximum dans lequel la réponse de l'API est attendue ? Valeur supérieur à 2 secondes.">
+<!ENTITY ssl "Atteindre la page admin en HTTPS sécurisé">
 <!ENTITY test "Tester la configuration en raccoursissant l'URL http://www.google.com">
 <!ENTITY apiV "L'URL de l'API">
 <!ENTITY signatureV "Signature">
 <!ENTITY askforkeyV "Demanader un mot clé">
 <!ENTITY maxwaitV "Delai max (s)">
+<!ENTITY sslV "API Sécurisé">
 <!ENTITY testV "Tester la configuration">

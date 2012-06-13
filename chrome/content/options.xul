@@ -9,8 +9,9 @@
 			<preference id="yourls-shortener-signature" name="extensions.yourls-shortener.signature" type="string"/>
 			<preference id="yourls-shortener-usesignature" name="extensions.yourls-shortener.usesignature" type="bool"/>
 			<preference id="yourls-shortener-askforkey" name="extensions.yourls-shortener.askforkey" type="bool"/>
-			<preference id="yourls-shortener-maxwait" name="extensions.yourls-shortener.maxwait" type="int"/>
-		</preferences>
+            <preference id="yourls-shortener-maxwait" name="extensions.yourls-shortener.maxwait" type="int"/>
+            <preference id="yourls-shortener-ssl" name="extensions.yourls-shortener.ssl" type="bool"/>
+        </preferences>
 		
 		<groupbox>
 			<caption label="&settings;"/>
@@ -32,11 +33,15 @@
 						<label control="askforkey" tooltiptext="&askforkey;" value="&askforkeyV;"/>
 						<checkbox id="askforkey" preference="yourls-shortener-askforkey"/>
 					</row>
-					<row>
-						<label control="maxwait" tooltiptext="&maxwait;" value="&maxwaitV;"/>
-						<textbox id="maxwait" preference="yourls-shortener-maxwait"/>
-					</row>
-					<row>
+                    <row>
+                        <label control="maxwait" tooltiptext="&maxwait;" value="&maxwaitV;"/>
+                        <textbox id="maxwait" preference="yourls-shortener-maxwait"/>
+                    </row>
+                    <row>
+                        <label control="ssl" tooltiptext="&ssl;" value="&sslV;"/>
+                        <checkbox id="ssl" preference="yourls-shortener-ssl"/>
+                    </row>
+                    <row>
 						<spacer/>
 						<button id="test" tooltiptext="&test;" label="&testV;" onclick="YOURLSshortener.test()"/>
 					</row>

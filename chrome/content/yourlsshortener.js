@@ -7,6 +7,8 @@ var YOURLSshortener = function () {
             var api = prefManager.getCharPref("extensions.yourls-shortener.api");
             if (api.substr(-1) != '/')
                 api += '/';
+            if ((prefManager.getBoolPref("extensions.yourls-shortener.ssl")) && (api.substr(4, 1) != 's'))
+                api = "https" + api.substr(4);
             openUILinkIn(api + "admin/", "tab");
             return;
         },
@@ -126,4 +128,4 @@ var YOURLSshortener = function () {
                 prompts.alert(null, "YOURLS - Error", "No API-URL specified... Check your settings!");
         }
     };
-} ();
+}();
