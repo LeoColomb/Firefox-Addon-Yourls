@@ -1,0 +1,92 @@
+/* Options */
+
+@namespace xhtml "http://www.w3.org/1999/xhtml";
+
+xhtml|link {
+	display: none;
+}
+label,
+tabpanel,
+tabbox,
+tabpanels,
+button,
+.tabs-left,
+.tabs-right,
+tab,
+groupbox,
+caption,
+textbox,
+button,
+scale * {
+	-moz-appearance: none;
+	border: 0;
+	background: none;
+	box-shadow: none;
+	padding: 0;
+	margin: 0;
+	display: -moz-box;
+}
+prefpane {
+	position: relative;
+}
+page, caption {
+	-moz-appearance: none;
+	background-color: #E3F3FF;
+	background-size: 100% 100%;
+	color: #595441;
+	font-family: Verdana,Arial;
+	font-size: 12px;
+	width: 100%;
+}
+tabpanel {
+	-moz-box-orient: vertical;
+	margin-top:30px;
+}
+groupbox {
+	color: #595441;
+	background: white;
+	border: 3px solid #2A85B3;
+	border-radius: 15px;
+	padding: 5px 20px 10px;
+	-moz-box-orient: vertical;
+	box-shadow: 0 0 10px 2px #88C0EB;
+	margin:11px;
+}
+caption {
+	background-color: #C7E7FF;
+	border: 1px solid #cdcdcd;
+	border-radius: 7px;
+	padding: 2px;
+	margin: 15px;
+}
+row {
+	margin: 1px;
+	padding: 2px;
+	height: 24px;
+}
+label {
+	margin-right: 15px;
+}
+textbox {
+	background-color: #FFFFFF;
+	border: 2px solid #2A85B3;
+	color: #595441;
+	font-family: Verdana,Arial;
+	font-size: 10px;
+	margin: 1px;
+	border-radius: 3px;
+}
+button {
+	background-color: #FFFFFF;
+	border: 2px solid #2A85B3;
+	color: #595441;
+	cursor: pointer;
+	font-family: Verdana,Arial;
+	font-size: 10px;
+	font-weight: bold;
+	border-radius: 3px;
+	margin-top: 20px;
+}
+:-moz-any(textbox):not([focused]), :-moz-any(button):not(:hover) {
+	border: 1px solid #88C0EB;
+}

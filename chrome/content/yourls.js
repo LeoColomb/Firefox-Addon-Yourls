@@ -1,13 +1,13 @@
-var YOURLSshortener = function () {
+var Yourls = function () {
     var prefManager = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
     var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"].getService(Components.interfaces.nsIPromptService);
     var clipboard = Components.classes["@mozilla.org/widget/clipboardhelper;1"].getService(Components.interfaces.nsIClipboardHelper);
     return {
         gohome: function () {
-            var api = prefManager.getCharPref("extensions.yourls-shortener.api");
+            var api = prefManager.getCharPref("extensions.yourls.api");
             if (api.substr(-1) != '/')
                 api += '/';
-            if ((prefManager.getBoolPref("extensions.yourls-shortener.ssl")) && (api.substr(4, 1) != 's'))
+            if ((prefManager.getBoolPref("extensions.yourls.ssl")) && (api.substr(4, 1) != 's'))
                 api = "https" + api.substr(4);
             openUILinkIn(api + "admin/", "tab");
             return;
@@ -37,13 +37,13 @@ var YOURLSshortener = function () {
             //alert (askforkey.value);
             //alert (maxwait.value);
             var checked = askforkey.checked;
-            prefManager.setCharPref("extensions.yourls-shortener.api", api.value);
-            prefManager.setCharPref("extensions.yourls-shortener.signature", signature.value);
-            prefManager.setBoolPref("extensions.yourls-shortener.askforkey", false);
-            prefManager.setIntPref("extensions.yourls-shortener.maxwait", maxwait.value);
+            prefManager.setCharPref("extensions.yourls.api", api.value);
+            prefManager.setCharPref("extensions.yourls.signature", signature.value);
+            prefManager.setBoolPref("extensions.yourls.askforkey", false);
+            prefManager.setIntPref("extensions.yourls.maxwait", maxwait.value);
 
             this.run("http://www.google.com/");
-            prefManager.setBoolPref("extensions.yourls-shortener.askforkey", checked);
+            prefManager.setBoolPref("extensions.yourls.askforkey", checked);
             return;
         },
         run: function (long) {
@@ -58,16 +58,16 @@ var YOURLSshortener = function () {
                     return;
                 }
 
-            var api = prefManager.getCharPref("extensions.yourls-shortener.api");
+            var api = prefManager.getCharPref("extensions.yourls.api");
             if (api.substr(-1) != '/')
                 api += '/';
             api += "yourls-api.php";
 
             if (api && api != "http://yoursite/") {
                 try {
-                    var params = "action=shorturl&format=simple&url=" + encodeURIComponent(long) + "&signature=" + encodeURIComponent(prefManager.getCharPref("extensions.yourls-shortener.signature"));
+                    var params = "action=shorturl&format=simple&url=" + encodeURIComponent(long) + "&signature=" + encodeURIComponent(prefManager.getCharPref("extensions.yourls.signature"));
 
-                    if (prefManager.getBoolPref("extensions.yourls-shortener.askforkey")) {
+                    if (prefManager.getBoolPref("extensions.yourls.askforkey")) {
                         var sel = "";
                         try {
                             sel = content.getSelection() + "";
@@ -75,7 +75,7 @@ var YOURLSshortener = function () {
                         catch (e) { }
 
                         var key = { value: sel };
-                        if (prompts.prompt(null, "YOURLS - Keyword", "Custom short URL with keyboard\n- Leave empty to generate -\n\n" + prefManager.getCharPref("extensions.yourls-shortener.api") + "...", key, null, { value: false })) {
+                        if (prompts.prompt(null, "YOURLS - Keyword", "Custom short URL with keyboard\n- Leave empty to generate -\n\n" + prefManager.getCharPref("extensions.yourls.api") + "...", key, null, { value: false })) {
                             if (key.value)
                                 params += "&keyword=" + encodeURIComponent(key.value);
                         }
@@ -83,7 +83,7 @@ var YOURLSshortener = function () {
                             return;
                     }
 
-                    var maxwait = 1000 * prefManager.getIntPref("extensions.yourls-shortener.maxwait");
+                    var maxwait = 1000 * prefManager.getIntPref("extensions.yourls.maxwait");
                     if (!maxwait || maxwait < 2000)
                         maxwait = 2000;
 
