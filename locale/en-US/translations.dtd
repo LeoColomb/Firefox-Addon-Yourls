@@ -1,5 +1,5 @@
-<!ENTITY shortener "YOURLS - Options">
-<!ENTITY settingsTitle "YOURLS">
+<!ENTITY shortener "YOURLS">
+<!ENTITY settingsTitle "YOURLS - Options">
 <!ENTITY shorten "Shorten">
 <!ENTITY shortenlong "Shorten this page with YOURLS">
 <!ENTITY gohome "Browse to the API">
