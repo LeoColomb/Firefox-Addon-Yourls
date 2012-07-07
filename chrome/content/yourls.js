@@ -46,7 +46,7 @@ var Yourls = function () {
             prefManager.setBoolPref("extensions.yourls.askforkey", checked);
             return;
         },
-        run: function (long) {
+        run: function (long, title) {
             if (!long) {
                 prompts.alert(null, "YOURLS - Error", "no URL specified!?");
                 return;
@@ -54,7 +54,7 @@ var Yourls = function () {
 
             if (long != "http://www.google.com/")
                 if (!(Services.io.getProtocolFlags(makeURI(long).scheme) & Ci.nsIProtocolHandler.URI_LOADABLE_BY_ANYONE)) {
-                    prompts.alert(null, "URL invalid", "This URL is not valid");
+                    prompts.alert(null, "YOURLS - Warning", "This URL is not valid");
                     return;
                 }
 
@@ -75,7 +75,7 @@ var Yourls = function () {
                         catch (e) { }
 
                         var key = { value: sel };
-                        if (prompts.prompt(null, "YOURLS - Keyword", "Custom short URL with keyboard\n- Leave empty to generate -\n\n" + prefManager.getCharPref("extensions.yourls.api") + "...", key, null, { value: false })) {
+                        if (prompts.prompt(null, "YOURLS - Keyword", "\"" + title + "\" URL will be shortened!\nCustom short URL with keyboard\n - leave empty to generate -\n\n" + prefManager.getCharPref("extensions.yourls.api") + "/...", key, null, { value: false })) {
                             if (key.value)
                                 params += "&keyword=" + encodeURIComponent(key.value);
                         }
@@ -103,7 +103,7 @@ var Yourls = function () {
                             return;
                         clearTimeout(requestTimer);
                         if ((request.status == 200 || request.status == 201) && request.responseText.match(/^\s*\S+\s*$/)) {
-                            prompts.alert(null, "YOURLS - Short URL", long + "\nis shortened by:\n\n" + request.responseText + "\n\nCopied in the clipboard");
+                            prompts.alert(null, "YOURLS - Short URL", title + " is shortened!\n\n" + String.fromCharCode(8594) + " " + request.responseText + "\n - copied in clipboard - ");
                             clipboard.copyString(request.responseText);
                             return;
                         }
