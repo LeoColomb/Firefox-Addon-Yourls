@@ -71,7 +71,7 @@ var Yourls = function () {
             if (api && api != "http://yoursite/") {
                 try {
                     if (prefManager.getBoolPref("extensions.yourls.timestamp")) {
-                        var timestamp = Math.round( new Date().getTime() / 1000 );
+                        var timestamp = Math.round(new Date().getTime() / 1000);
                         var signature = encodeURIComponent(this.hash(timestamp + prefManager.getCharPref("extensions.yourls.signature")));
                         signature += "&timestamp=" + timestamp;
                     }
@@ -96,7 +96,7 @@ var Yourls = function () {
                             return;
                     }
 
-                    prompts.alert(null, "YOURLS - Debug", api + "?" + params);
+                    //prompts.alert(null, "YOURLS - Debug", api + "?" + params);
 
                     var maxwait = 1000 * prefManager.getIntPref("extensions.yourls.maxwait");
                     if (!maxwait || maxwait < 2000)
@@ -110,7 +110,7 @@ var Yourls = function () {
 
                     var requestTimer = setTimeout(function () {
                         request.abort();
-                        var timerSmaller = true;
+                        timerSmaller = true;
                         return;
                     }, maxwait);
                     request.onreadystatechange = function () {
@@ -127,7 +127,11 @@ var Yourls = function () {
                             return;
                         }
                         else if (timerSmaller) {
-                            prompts.alert(null, "YOURLS - Error", "Do not understand the response from API!\nPlease check your signature and the API-URL.\n\nDebug info: " + request.status);
+                            prompts.alert(null, "YOURLS - Error", "Did not get an answer from server!\nTry again later or increase maximum waiting time.");
+                            return;
+                        }
+                        else {
+                            prompts.alert(null, "YOURLS - Error", "Do not understand the response from API!\nPlease check your signature and the API-URL.\n\nError: " + request.status);
                             return;
                         }
                     }
@@ -167,9 +171,9 @@ var Yourls = function () {
             'use strict';
 
             /*
-        * Add integers, wrapping at 2^32. This uses 16-bit operations internally
-        * to work around bugs in some JS interpreters.
-        */
+            * Add integers, wrapping at 2^32. This uses 16-bit operations internally
+            * to work around bugs in some JS interpreters.
+            */
             function safe_add(x, y) {
                 var lsw = (x & 0xFFFF) + (y & 0xFFFF),
                     msw = (x >> 16) + (y >> 16) + (lsw >> 16);
