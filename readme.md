@@ -9,8 +9,9 @@ Shorten URLs with your own YOURLS instance in your favorite browser!
 
 ### Install
 
-* Download latest .xpi compiled files
+* [Download](downloads) latest .xpi compiled files
 * In Firofox, install addon with this file
+* Update settings and go!
 
 ### More
 
