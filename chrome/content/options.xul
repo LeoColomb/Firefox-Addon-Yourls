@@ -16,7 +16,8 @@
 			<preference id="yourls-api" name="extensions.yourls.api" type="string" instantApply="true"/>
 			<preference id="yourls-signature" name="extensions.yourls.signature" type="string" instantApply="true"/>
 			<preference id="yourls-usesignature" name="extensions.yourls.usesignature" type="bool" instantApply="true"/>
-			<preference id="yourls-askforkey" name="extensions.yourls.askforkey" type="bool" instantApply="true"/>
+            <preference id="yourls-askforkey" name="extensions.yourls.askforkey" type="bool" instantApply="true"/>
+            <preference id="yourls-timestamp" name="extensions.yourls.timestamp" type="bool" instantApply="true"/>
             <preference id="yourls-maxwait" name="extensions.yourls.maxwait" type="int" instantApply="true"/>
             <preference id="yourls-ssl" name="extensions.yourls.ssl" type="bool" instantApply="true"/>
         </preferences>
@@ -41,10 +42,14 @@
 						            <label control="signature" tooltiptext="&signature;" value="&signatureV;"/>
 						            <textbox id="signature" preference="yourls-signature" type="password"/>
 					            </row>
-					            <row>
-						            <label control="askforkey" tooltiptext="&askforkey;" value="&askforkeyV;"/>
-						            <checkbox id="askforkey" preference="yourls-askforkey"/>
-					            </row>
+                                <row>
+                                    <label control="askforkey" tooltiptext="&askforkey;" value="&askforkeyV;"/>
+                                    <checkbox id="askforkey" preference="yourls-askforkey"/>
+                                </row>
+                                <row>
+                                    <label control="timestamp" tooltiptext="&timestamp;" value="&timestampV;"/>
+                                    <checkbox id="timestamp" preference="yourls-timestamp"/>
+                                </row>
                                 <row>
                                     <label control="maxwait" tooltiptext="&maxwait;" value="&maxwaitV;"/>
                                     <textbox id="maxwait" preference="yourls-maxwait"/>
