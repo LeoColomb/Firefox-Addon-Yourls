@@ -51,7 +51,6 @@ var Yourls = function () {
             return;
         },
         run: function (long, title) {
-            var timerSmaller = false;
             if (!long) {
                 prompts.alert(null, "YOURLS - Error", "no URL specified!?");
                 return;
@@ -66,6 +65,8 @@ var Yourls = function () {
             var api = prefManager.getCharPref("extensions.yourls.api");
             if (api.substr(-1) != '/')
                 api += '/';
+            if ((prefManager.getBoolPref("extensions.yourls.ssl")) && (api.substr(4, 1) != 's'))
+                api = "https" + api.substr(4);
             api += "yourls-api.php";
 
             if (api && api != "http://yoursite/") {
@@ -88,7 +89,7 @@ var Yourls = function () {
                         catch (e) { }
 
                         var key = { value: sel };
-                        if (prompts.prompt(null, "YOURLS - Keyword", "\"" + title + "\" URL will be shortened!\nCustom short URL with keyboard\n - leave empty to generate -\n\n" + prefManager.getCharPref("extensions.yourls.api") + "/...", key, null, { value: false })) {
+                        if (prompts.prompt(null, "YOURLS - Keyword", "\"" + title + "\" URL will be shortened!\n\nCustom short URL with keyboard\n" + prefManager.getCharPref("extensions.yourls.api") + "/...", key, null, { value: false })) {
                             if (key.value)
                                 params += "&keyword=" + encodeURIComponent(key.value);
                         }
@@ -110,7 +111,6 @@ var Yourls = function () {
 
                     var requestTimer = setTimeout(function () {
                         request.abort();
-                        timerSmaller = true;
                         return;
                     }, maxwait);
                     request.onreadystatechange = function () {
@@ -119,14 +119,14 @@ var Yourls = function () {
                         clearTimeout(requestTimer);
                         if ((request.status == 200 || request.status == 201) && request.responseText.match(/^\s*\S+\s*$/)) {
                             clipboard.copyString(request.responseText);
-                            prompts.alert(null, "YOURLS - Short URL", title + " is shortened!\n\n" + String.fromCharCode(8594) + " " + request.responseText + "\n - copied in clipboard - ");
+                            prompts.alert(null, "YOURLS - Shortened URL", title + " is shortened!\n\n" + String.fromCharCode(8594) + " " + request.responseText + "  (copied in clipboard)");
                             return;
                         }
                         else if ((request.status == 200 || request.status == 201) && request.responseText.match(/^\s*$/)) {
                             prompts.alert(null, "YOURLS - Error", "Shortening failed... Maybe chosen key already in use!?\nTry again!");
                             return;
                         }
-                        else if (timerSmaller) {
+                        else if (request.status == 0 || !request.status) {
                             prompts.alert(null, "YOURLS - Error", "Did not get an answer from server!\nTry again later or increase maximum waiting time.");
                             return;
                         }
