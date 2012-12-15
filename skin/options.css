@@ -55,8 +55,8 @@ groupbox {
 caption {
 	background-color: #C7E7FF;
 	border: 1px solid #cdcdcd;
-	border-radius: 7px;
-	padding: 2px;
+	border-radius: 5px;
+	padding: 3px;
 	margin: 15px;
 }
 row {
@@ -73,7 +73,7 @@ textbox {
 	color: #595441;
 	font-family: Verdana,Arial;
 	font-size: 10px;
-	margin: 1px;
+	margin: 0;
 	border-radius: 3px;
 }
 button {
@@ -85,8 +85,14 @@ button {
 	font-size: 10px;
 	font-weight: bold;
 	border-radius: 3px;
-	margin-top: 20px;
+}
+#ssl {
+    margin-bottom: 22px;
+}
+:-moz-any(button):active {
+    background-color: #C7E7FF;
 }
 :-moz-any(textbox):not([focused]), :-moz-any(button):not(:hover) {
 	border: 1px solid #88C0EB;
+    margin: 1px;
 }
