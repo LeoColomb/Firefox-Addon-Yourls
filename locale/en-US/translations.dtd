@@ -7,7 +7,8 @@
 <!ENTITY prefpane "YOURLS Shortener Preferences">
 <!ENTITY api "URL to the API, e.g. http://shortener.yoursite/">
 <!ENTITY signature "Your signature to authenticate at access restricted API's">
-<!ENTITY askforkey "Do you want to provide keywords?">
+<!ENTITY askforkey "Do you want to provide custom keywords?">
+<!ENTITY askfortitle "Do you want to provide custom titles?">
 <!ENTITY timestamp "Use a time limited signature token">
 <!ENTITY maxwait "How much time should we spend waiting for the API to respond? Minimum is 2 seconds.">
 <!ENTITY ssl "Got to API with secure HTTPS">
@@ -15,6 +16,7 @@
 <!ENTITY apiV "API URL">
 <!ENTITY signatureV "Signature">
 <!ENTITY askforkeyV "Ask for a keyword">
+<!ENTITY askfortitleV "Ask for a title">
 <!ENTITY timestampV "Time limited signature">
 <!ENTITY maxwaitV "Max wait time (sec)">
 <!ENTITY sslV "API Secure">

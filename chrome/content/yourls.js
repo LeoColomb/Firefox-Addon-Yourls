@@ -37,16 +37,19 @@ var Yourls = function () {
 
             //alert (askforkey.value);
             //alert (maxwait.value);
-            var checkedAsk = askforkey.checked;
+            var checkedAskKey = askforkey.checked;
+            var checkedAskTitle = askfortitle.checked;
             var checkedTime = timestamp.checked;
             prefManager.setCharPref("extensions.yourls.api", api.value);
             prefManager.setCharPref("extensions.yourls.signature", signature.value);
             prefManager.setBoolPref("extensions.yourls.askforkey", false);
+            prefManager.setBoolPref("extensions.yourls.askfortitle", false);
             prefManager.setBoolPref("extensions.yourls.timestamp", false);
             prefManager.setIntPref("extensions.yourls.maxwait", maxwait.value);
 
             this.run("http://www.google.com/");
-            prefManager.setBoolPref("extensions.yourls.askforkey", checkedAsk);
+            prefManager.setBoolPref("extensions.yourls.askforkey", checkedAskKey);
+            prefManager.setBoolPref("extensions.yourls.askfortitle", checkedAskTitle);
             prefManager.setBoolPref("extensions.yourls.timestamp", checkedTime);
             return;
         },
@@ -92,6 +95,22 @@ var Yourls = function () {
                         if (prompts.prompt(null, "YOURLS - Keyword", "\"" + title + "\" URL will be shortened!\n\nCustom short URL with keyboard\n" + prefManager.getCharPref("extensions.yourls.api") + "/...", key, null, { value: false })) {
                             if (key.value)
                                 params += "&keyword=" + encodeURIComponent(key.value);
+                        }
+                        else
+                            return;
+                    }
+
+                    if (prefManager.getBoolPref("extensions.yourls.askfortitle")) {
+                        var sel = "";
+                        try {
+                            sel = content.getSelection() + "";
+                        }
+                        catch (e) { }
+
+                        var titleURL = { value: sel };
+                        if (prompts.prompt(null, "YOURLS - Title", "URL will be shortened with default title:\n\"" + title + "\"\n\nCustom short URL with a special title?", titleURL, null, { value: false })) {
+                            if (titleURL.value)
+                                params += "&title=" + encodeURIComponent(titleURL.value);
                         }
                         else
                             return;

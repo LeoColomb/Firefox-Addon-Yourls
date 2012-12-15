@@ -1,72 +1,77 @@
 <?xml version="1.0"?>
 <!DOCTYPE page [
-    <!ENTITY % translations SYSTEM "chrome://yourls/locale/translations.dtd">
-    %translations;
+  <!ENTITY % translations SYSTEM "chrome://yourls/locale/translations.dtd">
+  %translations;
 ]>
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://yourls/skin/options.css" type="text/css"?>
 <page   id="YOURLS-Options"
-        title="&settingsTitle;" 
+        title="&settingsTitle;"
         xmlns:xhtml="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-    <xhtml:link rel="shortcut icon" href="chrome://yourls/skin/favicon.gif"/>
-    <script type="application/x-javascript" src="chrome://yourls/content/yourls.js" />
-	<prefpane label="&prefpane;">
-		<preferences>
-			<preference id="yourls-api" name="extensions.yourls.api" type="string" instantApply="true"/>
-			<preference id="yourls-signature" name="extensions.yourls.signature" type="string" instantApply="true"/>
-			<preference id="yourls-usesignature" name="extensions.yourls.usesignature" type="bool" instantApply="true"/>
-            <preference id="yourls-askforkey" name="extensions.yourls.askforkey" type="bool" instantApply="true"/>
-            <preference id="yourls-timestamp" name="extensions.yourls.timestamp" type="bool" instantApply="true"/>
-            <preference id="yourls-maxwait" name="extensions.yourls.maxwait" type="int" instantApply="true"/>
-            <preference id="yourls-ssl" name="extensions.yourls.ssl" type="bool" instantApply="true"/>
-        </preferences>
+  <xhtml:link rel="shortcut icon" href="chrome://yourls/skin/favicon.gif"/>
+  <script type="application/x-javascript" src="chrome://yourls/content/yourls.js" />
+  <prefpane label="&prefpane;">
+    <preferences>
+      <preference id="yourls-api" name="extensions.yourls.api" type="string" instantApply="true"/>
+      <preference id="yourls-signature" name="extensions.yourls.signature" type="string" instantApply="true"/>
+      <preference id="yourls-usesignature" name="extensions.yourls.usesignature" type="bool" instantApply="true"/>
+      <preference id="yourls-askforkey" name="extensions.yourls.askforkey" type="bool" instantApply="true"/>
+      <preference id="yourls-askfortitle" name="extensions.yourls.askfortitle" type="bool" instantApply="true"/>
+      <preference id="yourls-timestamp" name="extensions.yourls.timestamp" type="bool" instantApply="true"/>
+      <preference id="yourls-maxwait" name="extensions.yourls.maxwait" type="int" instantApply="true"/>
+      <preference id="yourls-ssl" name="extensions.yourls.ssl" type="bool" instantApply="true"/>
+    </preferences>
 
-        <tabbox align="center">
-            <tabpanels align="center">
-                <tabpanel align="center">
-                    <image src="chrome://yourls/skin/yourls-logo.png" />
-                    <groupbox align="center">
-			            <caption label="&settings;"/>
-			            <grid>
-				            <columns>
-					            <column flex="1"/>
-					            <column/>
-				            </columns>
-				            <rows>
-					            <row>
-						            <label control="api" tooltiptext="&api;" value="&apiV;"/>
-						            <textbox id="api" preference="yourls-api"/>
-					            </row>
-					            <row>
-						            <label control="signature" tooltiptext="&signature;" value="&signatureV;"/>
-						            <textbox id="signature" preference="yourls-signature" type="password"/>
-					            </row>
-                                <row>
-                                    <label control="askforkey" tooltiptext="&askforkey;" value="&askforkeyV;"/>
-                                    <checkbox id="askforkey" preference="yourls-askforkey"/>
-                                </row>
-                                <row>
-                                    <label control="timestamp" tooltiptext="&timestamp;" value="&timestampV;"/>
-                                    <checkbox id="timestamp" preference="yourls-timestamp"/>
-                                </row>
-                                <row>
-                                    <label control="maxwait" tooltiptext="&maxwait;" value="&maxwaitV;"/>
-                                    <textbox id="maxwait" preference="yourls-maxwait"/>
-                                </row>
-                                <row>
-                                    <label control="ssl" tooltiptext="&ssl;" value="&sslV;"/>
-                                    <checkbox id="ssl" preference="yourls-ssl"/>
-                                </row>
-                                <row>
-						            <spacer/>
-						            <button id="test" tooltiptext="&test;" label="&testV;" onclick="Yourls.test()"/>
-					            </row>
-				            </rows>
-			            </grid>
-		            </groupbox>
-                </tabpanel>
-            </tabpanels>
-        </tabbox>
-	</prefpane>
+    <tabbox align="center">
+      <tabpanels align="center">
+        <tabpanel align="center">
+          <image src="chrome://yourls/skin/yourls-logo.png" />
+          <groupbox align="center">
+            <caption label="&settings;"/>
+            <grid>
+              <columns>
+                <column flex="1"/>
+                <column/>
+              </columns>
+              <rows>
+                <row>
+                  <label control="api" tooltiptext="&api;" value="&apiV;"/>
+                  <textbox id="api" preference="yourls-api"/>
+                </row>
+                <row>
+                  <label control="signature" tooltiptext="&signature;" value="&signatureV;"/>
+                  <textbox id="signature" preference="yourls-signature" type="password"/>
+                </row>
+                <row>
+                  <label control="askforkey" tooltiptext="&askforkey;" value="&askforkeyV;"/>
+                  <checkbox id="askforkey" preference="yourls-askforkey"/>
+                </row>
+                <row>
+                  <label control="askfortitle" tooltiptext="&askfortitle;" value="&askfortitleV;"/>
+                  <checkbox id="askfortitle" preference="yourls-askfortitle"/>
+                </row>
+                <row>
+                  <label control="timestamp" tooltiptext="&timestamp;" value="&timestampV;"/>
+                  <checkbox id="timestamp" preference="yourls-timestamp"/>
+                </row>
+                <row>
+                  <label control="maxwait" tooltiptext="&maxwait;" value="&maxwaitV;"/>
+                  <textbox id="maxwait" preference="yourls-maxwait"/>
+                </row>
+                <row>
+                  <label control="ssl" tooltiptext="&ssl;" value="&sslV;"/>
+                  <checkbox id="ssl" preference="yourls-ssl"/>
+                </row>
+                <row>
+                  <spacer/>
+                  <button id="test" tooltiptext="&test;" label="&testV;" onclick="Yourls.test()"/>
+                </row>
+              </rows>
+            </grid>
+          </groupbox>
+        </tabpanel>
+      </tabpanels>
+    </tabbox>
+  </prefpane>
 </page>
