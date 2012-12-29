@@ -53,7 +53,7 @@ var Yourls = function () {
             prefManager.setBoolPref("extensions.yourls.timestamp", checkedTime);
             return;
         },
-        run: function (long, title) {
+        run: function (long, getTitle) {
             if (!long) {
                 prompts.alert(null, "YOURLS - Error", "no URL specified!?");
                 return;
@@ -65,8 +65,8 @@ var Yourls = function () {
                     return;
                 }
 
-            if (title)
-                title = "\"" + title + "\"";
+            if (getTitle)
+                title = "\"" + getTitle + "\"";
             else
                 title = "This";
 
@@ -114,7 +114,7 @@ var Yourls = function () {
 
                         var titleURL = { value: sel };
                         var defTitle = "";
-                        if (title)
+                        if (getTitle)
                             defTitle = "with default title:\n" + title;
                         else
                             defTitle = "whithout title";
