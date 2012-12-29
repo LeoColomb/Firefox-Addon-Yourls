@@ -47,7 +47,7 @@ var Yourls = function () {
             prefManager.setBoolPref("extensions.yourls.timestamp", false);
             prefManager.setIntPref("extensions.yourls.maxwait", maxwait.value);
 
-            this.run("http://www.google.com/");
+            this.run("http://www.firefox.com/");
             prefManager.setBoolPref("extensions.yourls.askforkey", checkedAskKey);
             prefManager.setBoolPref("extensions.yourls.askfortitle", checkedAskTitle);
             prefManager.setBoolPref("extensions.yourls.timestamp", checkedTime);
@@ -59,11 +59,16 @@ var Yourls = function () {
                 return;
             }
 
-            if (long != "http://www.google.com/")
+            if (long != "http://www.firefox.com/")
                 if (!(Services.io.getProtocolFlags(makeURI(long).scheme) & Ci.nsIProtocolHandler.URI_LOADABLE_BY_ANYONE)) {
                     prompts.alert(null, "YOURLS - Warning", "This URL is not valid");
                     return;
                 }
+
+            if (title)
+                title = "\"" + title + "\"";
+            else
+                title = "This";
 
             var api = prefManager.getCharPref("extensions.yourls.api");
             if (api.substr(-1) != '/')
@@ -92,7 +97,7 @@ var Yourls = function () {
                         catch (e) { }
 
                         var key = { value: sel };
-                        if (prompts.prompt(null, "YOURLS - Keyword", "\"" + title + "\" URL will be shortened!\n\nCustom short URL with keyboard\n" + prefManager.getCharPref("extensions.yourls.api") + "/...", key, null, { value: false })) {
+                        if (prompts.prompt(null, "YOURLS - Keyword", title + " URL will be shortened!\n\nCustom short URL with keyboard\n" + prefManager.getCharPref("extensions.yourls.api") + "/...", key, null, { value: false })) {
                             if (key.value)
                                 params += "&keyword=" + encodeURIComponent(key.value);
                         }
@@ -108,7 +113,12 @@ var Yourls = function () {
                         catch (e) { }
 
                         var titleURL = { value: sel };
-                        if (prompts.prompt(null, "YOURLS - Title", "URL will be shortened with default title:\n\"" + title + "\"\n\nCustom short URL with a special title?", titleURL, null, { value: false })) {
+                        var defTitle = "";
+                        if (title)
+                            defTitle = "with default title:\n" + title;
+                        else
+                            defTitle = "whithout title";
+                        if (prompts.prompt(null, "YOURLS - Title", "URL will be shortened " + defTitle + "\n\nCustom short URL with a specific title?", titleURL, null, { value: false })) {
                             if (titleURL.value)
                                 params += "&title=" + encodeURIComponent(titleURL.value);
                         }
@@ -138,7 +148,9 @@ var Yourls = function () {
                         clearTimeout(requestTimer);
                         if ((request.status == 200 || request.status == 201) && request.responseText.match(/^\s*\S+\s*$/)) {
                             clipboard.copyString(request.responseText);
-                            prompts.alert(null, "YOURLS - Shortened URL", title + " is shortened!\n\n" + String.fromCharCode(8594) + " " + request.responseText + "  (copied in clipboard)");
+                            if (titleURL)
+                                title = titleURL;
+                            prompts.alert(null, "YOURLS - Shortened URL", title + " URL is shortened!\n\n" + String.fromCharCode(8594) + " " + request.responseText + "  (copied in clipboard)");
                             return;
                         }
                         else if ((request.status == 200 || request.status == 201) && request.responseText.match(/^\s*$/)) {
