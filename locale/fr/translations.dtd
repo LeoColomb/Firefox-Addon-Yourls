@@ -1,19 +1,19 @@
 <!ENTITY shortener "YOURLS">
 <!ENTITY settingsTitle "YOURLS - Paramètres">
 <!ENTITY shorten "Raccourcir">
-<!ENTITY shortenlong "Raccourcir l'URL avec YOURLS">
+<!ENTITY shortenlong "Raccourcir le lien avec YOURLS">
 <!ENTITY gohome "Aller à l'API">
 <!ENTITY settings "Paramètres">
 <!ENTITY prefpane "YOURLS - Préférences">
 <!ENTITY api "URL du site API, ex. http://shortener.yoursite/">
 <!ENTITY signature "Clé Signature permettant l'authentification à l'API">
-<!ENTITY askforkey "Fournir un mot clé spécifique à l'URL">
-<!ENTITY askfortitle "Fournir un titre personalisé">
-<!ENTITY timestamp "Utiliser une clé de signature à durée limitée, en fonction de l'heure">
+<!ENTITY askforkey "Fournir un mot clé spécifique au lien raccourci">
+<!ENTITY askfortitle "Définir un titre personalisé au lien raccourci">
+<!ENTITY timestamp "Utiliser une clé de signature à durée limitée, en fonction de l'heure (MD5)">
 <!ENTITY maxwait "Quel délai maximum dans lequel la réponse de l'API est attendue ? Valeur supérieur à 2 secondes.">
-<!ENTITY ssl "Atteindre la page admin en HTTPS sécurisé">
+<!ENTITY ssl "Atteindre la page d'interface d'administartion en HTTPS sécurisé">
 <!ENTITY test "Tester la configuration en raccoursissant l'URL http://www.google.com">
-<!ENTITY apiV "L'URL de l'API">
+<!ENTITY apiV "URL de l'API">
 <!ENTITY signatureV "Signature">
 <!ENTITY askforkeyV "Demanader un mot clé">
 <!ENTITY askfortitleV "Demanader un titre">
