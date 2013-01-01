@@ -1,8 +1,18 @@
 var Yourls = function () {
+    'use strict';
     var prefManager = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
-    var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"].getService(Components.interfaces.nsIPromptService);
-    var clipboard = Components.classes["@mozilla.org/widget/clipboardhelper;1"].getService(Components.interfaces.nsIClipboardHelper);
+    var prompts     = Components.classes["@mozilla.org/embedcomp/prompt-service;1"].getService(Components.interfaces.nsIPromptService);
+    var clipboard   = Components.classes["@mozilla.org/widget/clipboardhelper;1"].getService(Components.interfaces.nsIClipboardHelper);
     return {
+        initYourlsBrowser: function () {
+            var contextAreaMenu = document.getElementById("contentAreaContextMenu");
+            if (contextAreaMenu)
+                contextAreaMenu.addEventListener("popupshowing", this.showHideYourls, false);
+        },
+        showHideYourls: function (event) {
+            var yourlsInMenu = document.getElementById("context-yourls");
+            yourlsInMenu.hidden = !gContextMenu.onLink;
+        },
         gohome: function () {
             var api = prefManager.getCharPref("extensions.yourls.api");
             if (api.substr(-1) != '/')
@@ -13,12 +23,12 @@ var Yourls = function () {
             return;
         },
         test: function () {
-            var api = document.getElementById("api");
-            var signature = document.getElementById("signature");
-            var maxwait = document.getElementById("maxwait");
-            var askforkey = document.getElementById("askforkey");
-            var timestamp = document.getElementById("timestamp");
-            var fail = "";
+            var api         = document.getElementById("api");
+            var signature   = document.getElementById("signature");
+            var maxwait     = document.getElementById("maxwait");
+            var askforkey   = document.getElementById("askforkey");
+            var timestamp   = document.getElementById("timestamp");
+            var fail        = "";
 
             if (!api || !signature || !maxwait || !askforkey || !timestamp) {
                 prompts.alert(null, "YOURLS - Test Error", "A bug occured!\nSorry, please contact the developer.");
@@ -36,6 +46,7 @@ var Yourls = function () {
             }
 
             //alert (askforkey.value);
+            //alert (askfortitle.value);
             //alert (maxwait.value);
             var checkedAskKey = askforkey.checked;
             var checkedAskTitle = askfortitle.checked;
@@ -55,21 +66,20 @@ var Yourls = function () {
         },
         run: function (long, getTitle) {
             if (!long) {
-                prompts.alert(null, "YOURLS - Error", "no URL specified!?");
+                prompts.alert(null, "YOURLS - Error", "No URL specified!");
                 return;
             }
-
-            if (long != "http://www.firefox.com/")
+            if (long != 'http://www.firefox.com/') {
                 if (!(Services.io.getProtocolFlags(makeURI(long).scheme) & Ci.nsIProtocolHandler.URI_LOADABLE_BY_ANYONE)) {
                     prompts.alert(null, "YOURLS - Warning", "This URL is not valid");
                     return;
                 }
+            }
 
             if (getTitle)
-                title = "\"" + getTitle + "\"";
+                var title = "\"" + getTitle + "\"";
             else
-                title = "This";
-
+                var title = "This";
             var api = prefManager.getCharPref("extensions.yourls.api");
             if (api.substr(-1) != '/')
                 api += '/';
@@ -199,7 +209,7 @@ var Yourls = function () {
 
             /*jslint bitwise: true */
             /*global unescape, define */
-            'use strict';
+            //'use strict';
 
             /*
             * Add integers, wrapping at 2^32. This uses 16-bit operations internally
@@ -451,3 +461,4 @@ var Yourls = function () {
         }
     };
 }();
+window.addEventListener("load", Yourls.initYourlsBrowser, false);

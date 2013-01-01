@@ -4,7 +4,7 @@
 <overlay id="sample" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
   <script src="yourls.js" />
   <popup id="contentAreaContextMenu">
-    <menuitem id="yourls-context" insertafter="context-savelink" label="&shortenlong;" tooltiptext="&shortenlong;" oncommand="Yourls.run(gContextMenu.linkURL);" />
+    <menuitem id="context-yourls" insertafter="context-savelink" label="&shortenlong;" tooltiptext="&shortenlong;" oncommand="Yourls.run(gContextMenu.linkURL); event.stopPropagation();" accesskey="y" />
   </popup>
   <statusbar id="status-bar">
     <statusbarpanel id="yourls-status-bar-icon" class="statusbarpanel-iconic" src="chrome://yourls/skin/favicon.gif" tooltiptext="&shortenlong;" onclick="event.button != 0 || Yourls.run(content.location.href);" />
