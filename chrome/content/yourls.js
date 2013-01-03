@@ -123,12 +123,11 @@ var Yourls = function () {
                         catch (e) { }
 
                         var titleURL = { value: sel };
-                        var defTitle = "";
                         if (getTitle)
-                            defTitle = "with default title:\n" + title;
+                            var defTitle = ":\n" + title;
                         else
-                            defTitle = "whithout title";
-                        if (prompts.prompt(null, "YOURLS - Title", "URL will be shortened " + defTitle + "\n\nCustom short URL with a specific title?", titleURL, null, { value: false })) {
+                            var defTitle = ".";
+                        if (prompts.prompt(null, "YOURLS - Title", "URL will be shortened with default title" + defTitle + "\n\nCustom short URL with a specific title?", titleURL, null, { value: false })) {
                             if (titleURL.value)
                                 params += "&title=" + encodeURIComponent(titleURL.value);
                         }
