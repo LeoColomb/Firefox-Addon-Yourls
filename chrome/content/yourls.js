@@ -1,4 +1,4 @@
-var Yourls = function () {
+var yourls = function () {
     'use strict';
     var prefManager = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
     var prompts     = Components.classes["@mozilla.org/embedcomp/prompt-service;1"].getService(Components.interfaces.nsIPromptService);
@@ -64,16 +64,22 @@ var Yourls = function () {
             prefManager.setBoolPref("extensions.yourls.timestamp", checkedTime);
             return;
         },
+        request: function () {
+            var requestURL = { value: "" };
+            if (prompts.prompt(null, "YOURLS - URL", "Add your URL to get a short URL", requestURL, null, { value: false })) {
+                return this.run(requestURL.value);
+            }
+            else
+                return;
+        },
         run: function (long, getTitle) {
             if (!long) {
                 prompts.alert(null, "YOURLS - Error", "No URL specified!");
                 return;
             }
-            if (long != 'http://www.firefox.com/') {
-                if (!(Services.io.getProtocolFlags(makeURI(long).scheme) & Ci.nsIProtocolHandler.URI_LOADABLE_BY_ANYONE)) {
-                    prompts.alert(null, "YOURLS - Warning", "This URL is not valid");
-                    return;
-                }
+            if (!(Services.io.getProtocolFlags(makeURI(long).scheme)) & Ci.nsIProtocolHandler.URI_LOADABLE_BY_ANYONE) {
+                prompts.alert(null, "YOURLS - Warning", "This URL is not valid");
+                return;
             }
 
             if (getTitle)
@@ -460,4 +466,4 @@ var Yourls = function () {
         }
     };
 }();
-window.addEventListener("load", Yourls.initYourlsBrowser, false);
+window.addEventListener("load", yourls.initYourlsBrowser, false);

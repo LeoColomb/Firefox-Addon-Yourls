@@ -4,16 +4,17 @@
 <overlay id="sample" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
   <script src="yourls.js" />
   <popup id="contentAreaContextMenu">
-    <menuitem id="context-yourls" insertafter="context-savelink" label="&shortenlong;" tooltiptext="&shortenlong;" oncommand="Yourls.run(gContextMenu.linkURL); event.stopPropagation();" accesskey="y" />
+    <menuitem id="context-yourls" insertafter="context-savelink" label="&shortenlong;" tooltiptext="&shortenlong;" oncommand="yourls.run(gContextMenu.linkURL); event.stopPropagation();" accesskey="y" />
   </popup>
   <statusbar id="status-bar">
-    <statusbarpanel id="yourls-status-bar-icon" class="statusbarpanel-iconic" src="chrome://yourls/skin/favicon.gif" tooltiptext="&shortenlong;" onclick="event.button != 0 || Yourls.run(content.location.href);" />
+    <statusbarpanel id="yourls-status-bar-icon" class="statusbarpanel-iconic" src="chrome://yourls/skin/favicon.gif" tooltiptext="&shortenlong;" onclick="event.button != 0 || yourls.run(content.location.href);" />
   </statusbar>
   <toolbar id="BrowserToolbarPalette">
-    <toolbarbutton id="yourls-toolbar-button" accesskey="y" label="&shorten;" tooltiptext="&shortenlong;" oncommand="Yourls.run(content.location.href, content.document.title);" class="toolbarbutton-1 chromeclass-toolbar-additional" type="menu-button">
+    <toolbarbutton id="yourls-toolbar-button" accesskey="y" label="&shorten;" tooltiptext="&shortenlong;" oncommand="yourls.run(content.location.href, content.document.title);" class="toolbarbutton-1 chromeclass-toolbar-additional" type="menu-button">
       <menupopup>
-        <menuitem label="&shorten;" tooltiptext="&shortenlong;" oncommand="Yourls.run(content.location.href, content.document.title); event.stopPropagation();" default="true" />
-        <menuitem label="&gohome;" oncommand="Yourls.gohome(); event.stopPropagation();" default="false" />
+        <menuitem label="&shorten;" tooltiptext="&shortenlong;" oncommand="yourls.run(content.location.href, content.document.title); event.stopPropagation();" default="true" />
+        <menuitem label="&shortenRequest;" tooltiptext="&shortenRequestlong;" oncommand="yourls.request(); event.stopPropagation();" />
+        <menuitem label="&gohome;" oncommand="yourls.gohome(); event.stopPropagation();" default="false" />
       </menupopup>
     </toolbarbutton>
   </toolbar>

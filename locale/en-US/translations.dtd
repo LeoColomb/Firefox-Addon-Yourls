@@ -2,6 +2,8 @@
 <!ENTITY settingsTitle "YOURLS - Options">
 <!ENTITY shorten "Shorten">
 <!ENTITY shortenlong "Shorten this link with YOURLS">
+<!ENTITY shortenRequest "Add URL">
+<!ENTITY shortenRequestlong "Shorten a link manualy with YOURLS">
 <!ENTITY gohome "Browse to the API">
 <!ENTITY settings "Settings">
 <!ENTITY prefpane "YOURLS Shortener Preferences">

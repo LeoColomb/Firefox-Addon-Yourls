@@ -1,8 +1,8 @@
-Yourls Shortener - Firefox Addon
-================================
+YOURLS - Your Own URL Shortener - Firefox Addon
+===============================================
 
 
-Addon for Yourls
+Addon for YOURLS
 ----------------
 
 Shorten URLs with your own YOURLS instance in your favorite browser!
@@ -17,4 +17,4 @@ Shorten URLs with your own YOURLS instance in your favorite browser!
 
 ### More
 
-See more information about [Yourls](http://yourls.org/)
+See more information about [YOURLS](http://yourls.org/)

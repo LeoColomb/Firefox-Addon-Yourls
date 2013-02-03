@@ -1,7 +1,9 @@
 <!ENTITY shortener "YOURLS">
 <!ENTITY settingsTitle "YOURLS - Paramètres">
 <!ENTITY shorten "Raccourcir">
+<!ENTITY shortenRequest "Ajouter une URL">
 <!ENTITY shortenlong "Raccourcir le lien avec YOURLS">
+<!ENTITY shortenRequestlong "Raccourcir un lien manuellement avec YOURLS">
 <!ENTITY gohome "Aller à l'API">
 <!ENTITY settings "Paramètres">
 <!ENTITY prefpane "YOURLS - Préférences">

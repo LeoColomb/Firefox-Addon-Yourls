@@ -65,7 +65,7 @@
                 </row>
                 <row>
                   <spacer/>
-                  <button id="test" tooltiptext="&test;" label="&testV;" onclick="Yourls.test()"/>
+                  <button id="test" tooltiptext="&test;" label="&testV;" onclick="yourls.test()"/>
                 </row>
               </rows>
             </grid>
