@@ -67,17 +67,23 @@ var yourls = function () {
         request: function () {
             var requestURL = { value: "" };
             if (prompts.prompt(null, "YOURLS - URL", "Add your URL to get a short URL", requestURL, null, { value: false })) {
-                return this.run(requestURL.value);
+                if (requestURL.value && this.isvalid(requestURL.value))
+                    return this.run(requestURL.value, '');
+                else 
+                    return prompts.alert(null, "YOURLS - Error", "Bad URL");
             }
             else
                 return;
+        },
+        isvalid: function (pulledURL) {
+                return ((Services.io.getProtocolFlags(makeURI(pulledURL).scheme)) & Ci.nsIProtocolHandler.URI_LOADABLE_BY_ANYONE);
         },
         run: function (long, getTitle) {
             if (!long) {
                 prompts.alert(null, "YOURLS - Error", "No URL specified!");
                 return;
             }
-            if (!(Services.io.getProtocolFlags(makeURI(long).scheme)) & Ci.nsIProtocolHandler.URI_LOADABLE_BY_ANYONE) {
+            if (!(this.isvalid(long))) {
                 prompts.alert(null, "YOURLS - Warning", "This URL is not valid");
                 return;
             }
