@@ -169,8 +169,8 @@ var yourls = function () {
                         clearTimeout(requestTimer);
                         if ((request.status == 200 || request.status == 201) && request.responseText.match(/^\s*\S+\s*$/)) {
                             clipboard.copyString(request.responseText);
-                            if (titleURL)
-                                title = titleURL;
+                            if (titleURL.value)
+                                title = titleURL.value;
                             prompts.alert(null, "YOURLS - Shortened URL", title + " URL is shortened!\n\n" + String.fromCharCode(8594) + " " + request.responseText + "  (copied in clipboard)");
                             return;
                         }
