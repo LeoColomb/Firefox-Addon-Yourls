@@ -1,5 +1,5 @@
 #yourls-toolbar-button, #yourls-context {
-	list-style-image: url("chrome://yourls/skin/favicon.gif");
+	list-style-image: url("chrome://yourls/skin/icon.png");
 }
 #yourls-status-bar-icon {
 	margin: 0 2px;

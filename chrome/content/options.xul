@@ -9,7 +9,7 @@
         title="&settingsTitle;"
         xmlns:xhtml="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-  <xhtml:link rel="shortcut icon" href="chrome://yourls/skin/favicon.gif"/>
+  <xhtml:link rel="shortcut icon" href="chrome://yourls/skin/icon.png"/>
   <script type="application/x-javascript" src="chrome://yourls/content/yourls.js" />
   <prefpane label="&prefpane;">
     <preferences>

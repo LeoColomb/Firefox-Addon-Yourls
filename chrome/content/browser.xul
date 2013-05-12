@@ -7,7 +7,7 @@
     <menuitem id="context-yourls" insertafter="context-savelink" label="&shortenlong;" tooltiptext="&shortenlong;" oncommand="yourls.run(gContextMenu.linkURL); event.stopPropagation();" accesskey="y" />
   </popup>
   <statusbar id="status-bar">
-    <statusbarpanel id="yourls-status-bar-icon" class="statusbarpanel-iconic" src="chrome://yourls/skin/favicon.gif" tooltiptext="&shortenlong;" onclick="event.button != 0 || yourls.run(content.location.href);" />
+    <statusbarpanel id="yourls-status-bar-icon" class="statusbarpanel-iconic" src="chrome://yourls/skin/icon.png" tooltiptext="&shortenlong;" onclick="event.button != 0 || yourls.run(content.location.href);" />
   </statusbar>
   <toolbar id="BrowserToolbarPalette">
     <toolbarbutton id="yourls-toolbar-button" accesskey="y" label="&shorten;" tooltiptext="&shortenlong;" oncommand="yourls.run(content.location.href, content.document.title);" class="toolbarbutton-1 chromeclass-toolbar-additional" type="menu-button">
