@@ -118,6 +118,8 @@ var yourls = function () {
                 try {
                     var api = this.fixedAPI() + "yourls-api.php";
                     var params = "";
+                    var titleURL = { value: seltwo };
+
                     if (prefManager.getBoolPref("extensions.yourls.askforkey")) {
                         var sel = "";
                         try {
@@ -142,7 +144,6 @@ var yourls = function () {
                         }
                         catch (e) { }
 
-                        var titleURL = { value: seltwo };
                         var defTitle = "";
                         if (getTitle) {
                             defTitle = ":\n" + title;
@@ -193,7 +194,7 @@ var yourls = function () {
                             if (titleURL.value) {
                                 title = titleURL.value;
                             }
-                            prompts.alert(null, "YOURLS - Shortened URL", title + " URL is shortened!\n\n" + String.fromCharCode(8594) + " " + request.responseText + "  (copied in clipboard)");
+                            prompts.alert(null, "YOURLS - Shortened URL", title + " URL is shortened!\nCopied in clipboard.\n\n" + String.fromCharCode(9658) + " " + request.responseText);
                             return;
                         }
                         else if ((request.status === 200 || request.status === 201) && request.responseText.match(/^\s*$/)) {
