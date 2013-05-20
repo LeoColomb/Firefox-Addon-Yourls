@@ -14,11 +14,11 @@
 <!ENTITY timestamp "Utiliser une clé de signature à durée limitée, en fonction de l'heure (MD5)">
 <!ENTITY maxwait "Quel délai maximum dans lequel la réponse de l'API est attendue ? Valeur supérieur à 2 secondes.">
 <!ENTITY ssl "Atteindre la page d'interface d'administartion en HTTPS sécurisé">
-<!ENTITY test "Tester la configuration en raccoursissant l'URL http://www.firefox.com">
+<!ENTITY test "Tester la configuration en raccoursissant l'URL http://www.mozilla.com">
 <!ENTITY apiV "URL de l'API">
 <!ENTITY signatureV "Signature">
-<!ENTITY askforkeyV "Demanader un mot clé">
-<!ENTITY askfortitleV "Demanader un titre">
+<!ENTITY askforkeyV "Demander un mot clé">
+<!ENTITY askfortitleV "Demander un titre">
 <!ENTITY timestampV "Clé à durée limitée">
 <!ENTITY maxwaitV "Delai max (s)">
 <!ENTITY sslV "API Sécurisé">

@@ -4,7 +4,7 @@
     <em:id>yourls@leocolomb.org</em:id>
     <em:name>YOURLS - Your Own URL Shortener</em:name>
     <em:homepageURL>http://github.com/LeoColomb/Firefox-Addon-Yourls</em:homepageURL>
-    <em:version>1.7.4</em:version>
+    <em:version>1.7.5</em:version>
     <em:description>Shorten URLs with your own YOURLS instance</em:description>
     <em:creator>Léo Colombaro</em:creator>
     <em:contributor>Martin Scharm</em:contributor>
@@ -15,8 +15,8 @@
     <em:targetApplication>
       <Description>
         <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
-        <em:minVersion>4.0</em:minVersion>
-        <em:maxVersion>20.0</em:maxVersion>
+        <em:minVersion>5.0</em:minVersion>
+        <em:maxVersion>24.0</em:maxVersion>
       </Description>
     </em:targetApplication>
   </Description>

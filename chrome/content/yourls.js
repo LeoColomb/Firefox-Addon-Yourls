@@ -6,27 +6,46 @@ var yourls = function () {
     return {
         initYourlsBrowser: function () {
             var contextAreaMenu = document.getElementById("contentAreaContextMenu");
-            if (contextAreaMenu)
+            if (contextAreaMenu) {
                 contextAreaMenu.addEventListener("popupshowing", this.showHideYourls, false);
+            }
         },
         showHideYourls: function (event) {
             var yourlsInMenu = document.getElementById("context-yourls");
             yourlsInMenu.hidden = !gContextMenu.onLink;
         },
         gohome: function () {
-            var api = prefManager.getCharPref("extensions.yourls.api");
-            if (api.substr(-1) != '/')
-                api += '/';
-            if ((prefManager.getBoolPref("extensions.yourls.ssl")) && (api.substr(4, 1) != 's'))
-                api = "https" + api.substr(4);
-            openUILinkIn(api + "admin/", "tab");
+            if (this.fixedAPI(true)) {
+                openUILinkIn(this.fixedAPI() + "admin/", "tab");
+            }
             return;
+        },
+        fixedAPI: function (testapi) {
+            var apiFixed = prefManager.getCharPref("extensions.yourls.api");
+            if (testapi) {
+                return (apiFixed && apiFixed !== "http://yoursite/");
+            } else if (apiFixed) {
+                if (apiFixed.substr(-1) !== "/") {
+                    apiFixed += "/";
+                }
+                if (apiFixed.substr(0, 4) !== "http") {
+                    apiFixed = + "http://";
+                }
+                if (prefManager.getBoolPref("extensions.yourls.ssl") && (apiFixed.substr(4, 1) !== "s")) {
+                    apiFixed = "https" + apiFixed.substr(4);
+                }
+                return apiFixed;
+            } else {
+                prompts.alert(null, "YOURLS - Error", "No API-URL specified... Check your settings!");
+                return "test";
+            }
         },
         test: function () {
             var api         = document.getElementById("api");
             var signature   = document.getElementById("signature");
             var maxwait     = document.getElementById("maxwait");
             var askforkey   = document.getElementById("askforkey");
+            var askfortitle = document.getElementById("askfortitle");
             var timestamp   = document.getElementById("timestamp");
             var fail        = "";
 
@@ -34,11 +53,11 @@ var yourls = function () {
                 prompts.alert(null, "YOURLS - Test Error", "A bug occured!\nSorry, please contact the developer.");
                 return;
             }
-
-            if (!api.value)
+            if (!api.value) {
                 fail += "Please specify an API-URL!\n";
-            else if (!api.value.match(/^http\S+$/))
+            } else if (!api.value.match(/^http\S+$/)) {
                 fail += "API-URL has to start with http, white-spaces are not allowed!\n";
+            }
 
             if (fail) {
                 prompts.alert(null, "YOURLS - Error", "Test failed:\n" + fail);
@@ -48,69 +67,57 @@ var yourls = function () {
             //alert (askforkey.value);
             //alert (askfortitle.value);
             //alert (maxwait.value);
-            var checkedAskKey = askforkey.checked;
+            var checkedAskKey   = askforkey.checked;
             var checkedAskTitle = askfortitle.checked;
-            var checkedTime = timestamp.checked;
-            prefManager.setCharPref("extensions.yourls.api", api.value);
-            prefManager.setCharPref("extensions.yourls.signature", signature.value);
-            prefManager.setBoolPref("extensions.yourls.askforkey", false);
+            var checkedTime     = timestamp.checked;
+            prefManager.setCharPref("extensions.yourls.api"        , api.value);
+            prefManager.setCharPref("extensions.yourls.signature"  , signature.value);
+            prefManager.setBoolPref("extensions.yourls.askforkey"  , false);
             prefManager.setBoolPref("extensions.yourls.askfortitle", false);
-            prefManager.setBoolPref("extensions.yourls.timestamp", false);
-            prefManager.setIntPref("extensions.yourls.maxwait", maxwait.value);
+            prefManager.setBoolPref("extensions.yourls.timestamp"  , false);
+            prefManager.setIntPref( "extensions.yourls.maxwait"    , maxwait.value);
 
-            this.run("http://www.firefox.com/");
-            prefManager.setBoolPref("extensions.yourls.askforkey", checkedAskKey);
+            this.run("http://www.mozilla.com/");
+            prefManager.setBoolPref("extensions.yourls.askforkey"  , checkedAskKey);
             prefManager.setBoolPref("extensions.yourls.askfortitle", checkedAskTitle);
-            prefManager.setBoolPref("extensions.yourls.timestamp", checkedTime);
+            prefManager.setBoolPref("extensions.yourls.timestamp"  , checkedTime);
             return;
         },
         request: function () {
             var requestURL = { value: "" };
             if (prompts.prompt(null, "YOURLS - URL", "Add your URL to get a short URL", requestURL, null, { value: false })) {
-                if (requestURL.value && this.isvalid(requestURL.value))
+                if (requestURL.value && this.isvalid(requestURL.value)) {
                     return this.run(requestURL.value, '');
-                else 
+                } else {
                     return prompts.alert(null, "YOURLS - Error", "Bad URL");
-            }
-            else
+                }
+            } else {
                 return;
+            }
         },
         isvalid: function (pulledURL) {
-                return ((Services.io.getProtocolFlags(makeURI(pulledURL).scheme)) & Ci.nsIProtocolHandler.URI_LOADABLE_BY_ANYONE);
+            return ((Services.io.getProtocolFlags(makeURI(pulledURL).scheme)) & Ci.nsIProtocolHandler.URI_LOADABLE_BY_ANYONE);
         },
-        run: function (long, getTitle) {
-            if (!long) {
+        run: function (longurl, getTitle) {
+            if (!longurl) {
                 prompts.alert(null, "YOURLS - Error", "No URL specified!");
                 return;
             }
-            if (!(this.isvalid(long))) {
-                prompts.alert(null, "YOURLS - Warning", "This URL is not valid");
+            if (!(this.isvalid(longurl))) {
+                prompts.alert(null, "YOURLS - Error", "This URL is not valid.");
                 return;
             }
+            var title = "";
+            if (getTitle) {
+                title = "\"" + getTitle + "\"";
+            } else {
+                title = "This";
+            }
 
-            if (getTitle)
-                var title = "\"" + getTitle + "\"";
-            else
-                var title = "This";
-            var api = prefManager.getCharPref("extensions.yourls.api");
-            if (api.substr(-1) != '/')
-                api += '/';
-            if ((prefManager.getBoolPref("extensions.yourls.ssl")) && (api.substr(4, 1) != 's'))
-                api = "https" + api.substr(4);
-            api += "yourls-api.php";
-
-            if (api && api != "http://yoursite/") {
+            if (this.fixedAPI(true)) {
                 try {
-                    if (prefManager.getBoolPref("extensions.yourls.timestamp")) {
-                        var timestamp = Math.round(new Date().getTime() / 1000);
-                        var signature = encodeURIComponent(this.hash(timestamp + prefManager.getCharPref("extensions.yourls.signature")));
-                        signature += "&timestamp=" + timestamp;
-                    }
-                    else {
-                        var signature = encodeURIComponent(prefManager.getCharPref("extensions.yourls.signature"));
-                    }
-                    var params = "action=shorturl&format=simple&url=" + encodeURIComponent(long) + "&signature=" + signature;
-
+                    var api = this.fixedAPI() + "yourls-api.php";
+                    var params = "";
                     if (prefManager.getBoolPref("extensions.yourls.askforkey")) {
                         var sel = "";
                         try {
@@ -119,39 +126,52 @@ var yourls = function () {
                         catch (e) { }
 
                         var key = { value: sel };
-                        if (prompts.prompt(null, "YOURLS - Keyword", title + " URL will be shortened!\n\nCustom short URL with keyboard\n" + prefManager.getCharPref("extensions.yourls.api") + "/...", key, null, { value: false })) {
-                            if (key.value)
-                                params += "&keyword=" + encodeURIComponent(key.value);
-                        }
-                        else
+                        if (prompts.prompt(null, "YOURLS - Keyword", title + " URL will be shortened!\n\nCustom short URL with keyboard\n" + this.fixedAPI() + "...", key, null, { value: false })) {
+                            if (key.value) {
+                                params += "keyword=" + encodeURIComponent(key.value) + "&";
+                            }
+                        } else {
                             return;
+                        }
                     }
 
                     if (prefManager.getBoolPref("extensions.yourls.askfortitle")) {
-                        var sel = "";
+                        var seltwo = "";
                         try {
-                            sel = content.getSelection() + "";
+                            seltwo = content.getSelection() + "";
                         }
                         catch (e) { }
 
-                        var titleURL = { value: sel };
-                        if (getTitle)
-                            var defTitle = ":\n" + title;
-                        else
-                            var defTitle = ".";
-                        if (prompts.prompt(null, "YOURLS - Title", "URL will be shortened with default title" + defTitle + "\n\nCustom short URL with a specific title?", titleURL, null, { value: false })) {
-                            if (titleURL.value)
-                                params += "&title=" + encodeURIComponent(titleURL.value);
+                        var titleURL = { value: seltwo };
+                        var defTitle = "";
+                        if (getTitle) {
+                            defTitle = ":\n" + title;
+                        } else {
+                            defTitle = ".";
                         }
-                        else
+                        if (prompts.prompt(null, "YOURLS - Title", "URL will be shortened with default title" + defTitle + "\n\nCustom short URL with a specific title?", titleURL, null, { value: false })) {
+                            if (titleURL.value) {
+                                params += "title=" + encodeURIComponent(titleURL.value) + "&";
+                            }
+                        } else {
                             return;
+                        }
                     }
 
+                    if (prefManager.getBoolPref("extensions.yourls.timestamp")) {
+                        var timestamp = Math.round(new Date().getTime() / 1000);
+                        params += "signature=" + encodeURIComponent(this.hash(timestamp + prefManager.getCharPref("extensions.yourls.signature"))) + "&timestamp=" + timestamp + "&";;
+                    }
+                    else {
+                        params += "signature=" + encodeURIComponent(prefManager.getCharPref("extensions.yourls.signature")) + "&";
+                    }
+                    params += "action=shorturl&format=simple&url=" + encodeURIComponent(longurl);
                     //prompts.alert(null, "YOURLS - Debug", api + "?" + params);
 
                     var maxwait = 1000 * prefManager.getIntPref("extensions.yourls.maxwait");
-                    if (!maxwait || maxwait < 2000)
+                    if (!maxwait || maxwait < 2000) {
                         maxwait = 2000;
+                    }
 
                     var request = new XMLHttpRequest();
                     request.open("POST", api, true);
@@ -164,21 +184,23 @@ var yourls = function () {
                         return;
                     }, maxwait);
                     request.onreadystatechange = function () {
-                        if (request.readyState != 4)
+                        if (request.readyState !== 4) {
                             return;
+                        }
                         clearTimeout(requestTimer);
-                        if ((request.status == 200 || request.status == 201) && request.responseText.match(/^\s*\S+\s*$/)) {
+                        if ((request.status === 200 || request.status === 201) && request.responseText.match(/^\s*\S+\s*$/)) {
                             clipboard.copyString(request.responseText);
-                            if (titleURL.value)
+                            if (titleURL.value) {
                                 title = titleURL.value;
+                            }
                             prompts.alert(null, "YOURLS - Shortened URL", title + " URL is shortened!\n\n" + String.fromCharCode(8594) + " " + request.responseText + "  (copied in clipboard)");
                             return;
                         }
-                        else if ((request.status == 200 || request.status == 201) && request.responseText.match(/^\s*$/)) {
+                        else if ((request.status === 200 || request.status === 201) && request.responseText.match(/^\s*$/)) {
                             prompts.alert(null, "YOURLS - Error", "Shortening failed... Maybe chosen key already in use!?\nTry again!");
                             return;
                         }
-                        else if (request.status == 0 || !request.status) {
+                        else if (request.status === 0 || !request.status) {
                             prompts.alert(null, "YOURLS - Error", "Did not get an answer from server!\nTry again later or increase maximum waiting time.");
                             return;
                         }
@@ -186,17 +208,15 @@ var yourls = function () {
                             prompts.alert(null, "YOURLS - Error", "Do not understand the response from API!\nPlease check your signature and the API-URL.\n\nError: " + request.status);
                             return;
                         }
-                    }
-
+                    },
                     request.send(params);
                 }
                 catch (e) {
                     prompts.alert(null, "YOURLS - Error", "Failed to start XMLHttpRequest:\n" + e.message);
                 }
-
+            } else {
+                return;
             }
-            else
-                prompts.alert(null, "YOURLS - Error", "No API-URL specified... Check your settings!");
         },
         hash: function (string, key, raw) {
             /*
@@ -219,8 +239,6 @@ var yourls = function () {
             */
 
             /*jslint bitwise: true */
-            /*global unescape, define */
-            //'use strict';
 
             /*
             * Add integers, wrapping at 2^32. This uses 16-bit operations internally
@@ -460,15 +478,6 @@ var yourls = function () {
                 return hex_hmac_md5(key, string);
             }
             return raw_hmac_md5(key, string);
-
-
-            if (typeof define === 'function' && define.amd) {
-                define(function () {
-                    return md5;
-                });
-            } else {
-                $.md5 = md5;
-            }
         }
     };
 }();
