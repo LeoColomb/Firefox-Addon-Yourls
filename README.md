@@ -7,11 +7,8 @@ Shorten URLs with your own [YOURLS](http://yourls.org/) instance in your favorit
 
 ### Install
 
-1. [Download](Firefox-Addon-Yourls/zipball/master) a zipball of files
-2. Zip extracted files of sub-folder 
-3. Rename `[File].zip` to `[File].xpi`
-4. In Firefox, install addon by selecting this file
-5. Update settings and go!
+1. [Download](http://addons.mozilla.org/firefox/addon/yourls/)
+2. That's all!
 
 ### More
 
