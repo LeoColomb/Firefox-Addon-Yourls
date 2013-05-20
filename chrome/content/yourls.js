@@ -1,8 +1,9 @@
 var yourls = function () {
     'use strict';
     var prefManager = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
-    var prompts     = Components.classes["@mozilla.org/embedcomp/prompt-service;1"].getService(Components.interfaces.nsIPromptService);
-    var clipboard   = Components.classes["@mozilla.org/widget/clipboardhelper;1"].getService(Components.interfaces.nsIClipboardHelper);
+    var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"].getService(Components.interfaces.nsIPromptService);
+    var clipboard = Components.classes["@mozilla.org/widget/clipboardhelper;1"].getService(Components.interfaces.nsIClipboardHelper);
+    var iOService = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
     return {
         initYourlsBrowser: function () {
             var contextAreaMenu = document.getElementById("contentAreaContextMenu");
@@ -41,13 +42,13 @@ var yourls = function () {
             }
         },
         test: function () {
-            var api         = document.getElementById("api");
-            var signature   = document.getElementById("signature");
-            var maxwait     = document.getElementById("maxwait");
-            var askforkey   = document.getElementById("askforkey");
+            var api = document.getElementById("api");
+            var signature = document.getElementById("signature");
+            var maxwait = document.getElementById("maxwait");
+            var askforkey = document.getElementById("askforkey");
             var askfortitle = document.getElementById("askfortitle");
-            var timestamp   = document.getElementById("timestamp");
-            var fail        = "";
+            var timestamp = document.getElementById("timestamp");
+            var fail = "";
 
             if (!api || !signature || !maxwait || !askforkey || !timestamp) {
                 prompts.alert(null, "YOURLS - Test Error", "A bug occured!\nSorry, please contact the developer.");
@@ -67,20 +68,20 @@ var yourls = function () {
             //alert (askforkey.value);
             //alert (askfortitle.value);
             //alert (maxwait.value);
-            var checkedAskKey   = askforkey.checked;
+            var checkedAskKey = askforkey.checked;
             var checkedAskTitle = askfortitle.checked;
-            var checkedTime     = timestamp.checked;
-            prefManager.setCharPref("extensions.yourls.api"        , api.value);
-            prefManager.setCharPref("extensions.yourls.signature"  , signature.value);
-            prefManager.setBoolPref("extensions.yourls.askforkey"  , false);
+            var checkedTime = timestamp.checked;
+            prefManager.setCharPref("extensions.yourls.api", api.value);
+            prefManager.setCharPref("extensions.yourls.signature", signature.value);
+            prefManager.setBoolPref("extensions.yourls.askforkey", false);
             prefManager.setBoolPref("extensions.yourls.askfortitle", false);
-            prefManager.setBoolPref("extensions.yourls.timestamp"  , false);
-            prefManager.setIntPref( "extensions.yourls.maxwait"    , maxwait.value);
+            prefManager.setBoolPref("extensions.yourls.timestamp", false);
+            prefManager.setIntPref("extensions.yourls.maxwait", maxwait.value);
 
             this.run("http://www.mozilla.com/");
-            prefManager.setBoolPref("extensions.yourls.askforkey"  , checkedAskKey);
+            prefManager.setBoolPref("extensions.yourls.askforkey", checkedAskKey);
             prefManager.setBoolPref("extensions.yourls.askfortitle", checkedAskTitle);
-            prefManager.setBoolPref("extensions.yourls.timestamp"  , checkedTime);
+            prefManager.setBoolPref("extensions.yourls.timestamp", checkedTime);
             return;
         },
         request: function () {
@@ -96,7 +97,7 @@ var yourls = function () {
             }
         },
         isvalid: function (pulledURL) {
-            return ((Services.io.getProtocolFlags(makeURI(pulledURL).scheme)) & Ci.nsIProtocolHandler.URI_LOADABLE_BY_ANYONE);
+            return ((iOService.getProtocolFlags(makeURI(pulledURL).scheme)) & Ci.nsIProtocolHandler.URI_LOADABLE_BY_ANYONE);
         },
         run: function (longurl, getTitle) {
             if (!longurl) {
